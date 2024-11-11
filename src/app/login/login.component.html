@@ -1,0 +1,73 @@
+<body>
+  <div class="stars"></div>
+  <div class="container-fluid">
+    <div class="login-card">
+      <div class="login-header">
+        <h1>Welcome Back</h1>
+        <p>Sign in to continue</p>
+      </div>
+      <form [formGroup]="loginform" id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="username">Username</label>
+          <div class="input-group">
+            <i class="bi bi-person-fill"></i>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              placeholder="Enter your username"
+              formControlName="txtUsername"
+            />
+          </div>
+          <div
+            *ngIf="
+              loginform.controls['txtUsername'].touched &&
+              loginform.hasError('required', 'txtUsername')
+            "
+            class="invalid-feedback d-block"
+          >
+            Username is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-group">
+            <i class="bi bi-lock-fill"></i>
+
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Enter your password"
+              formControlName="txtPassword"
+            />
+          </div>
+          <div
+            *ngIf="
+              loginform.controls['txtPassword'].touched &&
+              loginform.hasError('required', 'txtPassword')
+            "
+            class="invalid-feedback d-block"
+          >
+            Password is required.
+          </div>
+        </div>
+
+        <div class="d-grid mb-4">
+          <button type="button" class="login-button" (click)="save()">
+            Sign In
+          </button>
+        </div>
+
+        <div class="text-center">
+          <p class="mb-0">
+            Don't have an account?
+            <a routerLink="/signup" class="signup-link"
+              ><strong>Sign Up</strong>
+            </a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>

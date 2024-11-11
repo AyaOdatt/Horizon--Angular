@@ -1,0 +1,251 @@
+<div class="stars"></div>
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="text-center mb-4">
+      <h2 class="signup-title" style="color: white">Create Account</h2>
+      <p class="signup-subtitle"><strong>our community today</strong></p>
+    </div>
+
+    <form [formGroup]="signupform">
+      <div class="profile-upload-section mb-4">
+        <!-- <div class="profile-preview" [class.has-image]="profilePhoto">
+          <img
+            *ngIf="profilePhoto"
+            [src]="profilePhoto"
+            alt="Profile Preview"
+            class="preview-image"
+          />
+          <div *ngIf="!profilePhoto" class="upload-placeholder">
+            <i class="bi bi-person-circle"></i>
+          </div>
+        </div> -->
+        <!-- <div class="upload-button">
+          <label class="btn btn-outline-primary" for="profileImage">
+            <i class="bi bi-camera-fill me-2"></i>
+            Upload Photo
+          </label>
+          <input
+            type="file"
+            class="d-none"
+            id="profileImage"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+          />
+        </div> -->
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label" style="color: white">First Name</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="First Name"
+              formControlName="txtName"
+              [class.is-invalid]="
+                signupform.controls['txtName'].touched &&
+                signupform.hasError('required', 'txtName')
+              "
+            />
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              signupform.controls['txtName'].touched &&
+              signupform.hasError('required', 'txtName')
+            "
+          >
+            First Name is required
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Last Name</label>
+          <div class="input-group" style="color: white; margin-left: 0.2rem">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Last Name"
+              formControlName="txtLastName"
+              [class.is-invalid]="
+                signupform.controls['txtLastName'].touched &&
+                signupform.hasError('required', 'txtLastName')
+              "
+            />
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              signupform.controls['txtLastName'].touched &&
+              signupform.hasError('required', 'txtLastName')
+            "
+          >
+            Last Name is required
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" style="color: white">Email</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Email"
+            formControlName="txtEmail"
+            [class.is-invalid]="
+              signupform.controls['txtEmail'].touched &&
+              signupform.hasError('required', 'txtEmail')
+            "
+          />
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            signupform.controls['txtEmail'].touched &&
+            signupform.hasError('required', 'txtEmail')
+          "
+        >
+          Email is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" style="color: white">Date of Birth</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="txtDOB"
+            [class.is-invalid]="
+              signupform.controls['txtDOB'].touched &&
+              signupform.hasError('required', 'txtDOB')
+            "
+          />
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            signupform.controls['txtDOB'].touched &&
+            signupform.hasError('required', 'txtDOB')
+          "
+        >
+          Date of Birth is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" style="color: white">Gender</label>
+        <div class="gender-selection">
+          <div class="gender-option">
+            <input
+              type="radio"
+              id="genderMale"
+              value="Male"
+              class="btn-check"
+              formControlName="txtGender"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary" for="genderMale">
+              <i class="bi bi-gender-male me-2"></i>Male
+            </label>
+          </div>
+          <div class="gender-option">
+            <input
+              type="radio"
+              id="genderFemale"
+              value="Female"
+              class="btn-check"
+              formControlName="txtGender"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary" for="genderFemale">
+              <i class="bi bi-gender-female me-2"></i>Female
+            </label>
+          </div>
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            signupform.controls['txtGender'].touched &&
+            signupform.hasError('required', 'txtGender')
+          "
+        >
+          Gender is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" style="color: white">Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-lock"></i></span>
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Password"
+            formControlName="txtPassword"
+            [class.is-invalid]="
+              signupform.controls['txtPassword'].touched &&
+              signupform.hasError('required', 'txtPassword')
+            "
+          />
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            signupform.controls['txtPassword'].touched &&
+            signupform.hasError('required', 'txtPassword')
+          "
+        >
+          Password is required
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label" style="color: white">Confirm Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Confirm Password"
+            formControlName="txtConfirmPassword"
+            [class.is-invalid]="
+              signupform.controls['txtConfirmPassword'].touched &&
+              signupform.hasError('required', 'txtConfirmPassword')
+            "
+          />
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="
+            signupform.controls['txtConfirmPassword'].touched &&
+            signupform.hasError('required', 'txtConfirmPassword')
+          "
+        >
+          Confirm Password is required
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-primary w-100 btn-lg"
+        (click)="save()"
+        [disabled]="!signupform.valid"
+      >
+        Create Account
+      </button>
+
+      <div class="text-center mt-3">
+        <p class="login-link">
+          Already have an account? <a routerLink="/login">Login here</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

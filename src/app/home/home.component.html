@@ -1,0 +1,245 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 col-lg-2 bg-light custom-gradient sidebar">
+      <a
+        routerLink="/"
+        class="d-flex justify-content-center py-4 text-decoration-none"
+      >
+        <h1
+          class="mb-0"
+          style="color: #0d6efd; font-size: 24px; font-weight: bold"
+        >
+          Horizon
+        </h1>
+      </a>
+      <div
+        class="d-flex flex-column align-items-center justify-content-center py-4"
+      >
+        <img
+          [src]="getProfileImage()"
+          alt="Profile Picture"
+          class="rounded-circle mb-3"
+          width="100"
+          height="100"
+        />
+        <h6 class="mb-0" style="color: #0d6efd">
+          {{ loggedinUser?.firstName }} {{ loggedinUser?.lastName }}
+        </h6>
+        <p class="text-muted mb-4" style="color: white !important">
+          {{ loggedinUser?.userName }}
+        </p>
+
+        <ul class="nav nav-pills flex-column w-100">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              routerLink="/profile"
+              style="background: none"
+            >
+              <i class="bi bi-person-fill me-2"></i>
+              <span style="color: white">Profile </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/settings" style="background: none">
+              <i class="bi bi-gear-fill me-2"></i>
+              <span style="color: white">Settings </span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/logout"
+              style="background: none; cursor: pointer"
+            >
+              <i class="bi bi-box-arrow-right me-2"></i>
+              <span style="color: white">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9 col-lg-10 p-4">
+      <div class="container py-5">
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-8">
+            <div class="custom-form bg-white">
+              <h4 class="mb-4 text-primary">Create New Post</h4>
+
+              <form [formGroup]="createPostForm" (ngSubmit)="createPost()">
+                <div class="mb-4">
+                  <label for="contentText" class="form-label fw-bold"></label>
+                  <textarea
+                    class="form-control"
+                    id="contentText"
+                    rows="4"
+                    formControlName="contentText"
+                    placeholder="Share your thoughts..."
+                  ></textarea>
+                  <div
+                    *ngIf="
+                      createPostForm.controls['contentText'].invalid &&
+                      createPostForm.controls['contentText'].touched
+                    "
+                    class="error-message"
+                  >
+                    Content is required.
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <div class="upload-button">
+                    <label
+                      class="btn btn-outline-primary"
+                      id="uploadButton"
+                      for="profileImage"
+                    >
+                      <i class="bi bi-camera-fill me-2"></i>
+                      Upload Photo
+                    </label>
+                    <input
+                      type="file"
+                      class="d-none"
+                      id="profileImage"
+                      accept="image/*"
+                      (change)="onFileSelected($event)"
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      createPostForm.controls['contentImage'].invalid &&
+                      createPostForm.controls['contentImage'].touched
+                    "
+                    class="error-message"
+                  >
+                    A valid image URL is required (Optional).
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-outline-primary"
+                  [disabled]="createPostForm.invalid"
+                >
+                  Create Post
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div *ngIf="posts.length > 0; else noPosts">
+              <div *ngFor="let post of posts" class="post-card mb-4">
+                <div class="card-body p-4">
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-3"
+                  >
+                    <span>
+                      <strong
+                        >{{ post.user.firstName }}
+                        {{ post.user.lastName }}</strong
+                      >
+                    </span>
+                  </div>
+                  <p
+                    class="card-text mb-4"
+                    style="color: 0d6efd; font-size: 15px"
+                  >
+                    {{ post.contentText }}
+                  </p>
+
+                  <img
+                    *ngIf="post.contentImage"
+                    [src]="post.contentImage"
+                    alt="Post Image"
+                    class="post-image img-fluid w-100 mb-3"
+                  />
+
+                  <div class="likebuttons">
+                    <button
+                      id="button1"
+                      (click)="toggleLike(post.postId)"
+                      class="btn btn-outline-primary"
+                    >
+                      <i
+                        class="fa"
+                        [ngClass]="
+                          isLiked(post.postId)
+                            ? 'fa-thumbs-up'
+                            : 'fa-thumbs-o-up'
+                        "
+                      ></i>
+                    </button>
+                  </div>
+
+                  <div class="comment-section">
+                    <div class="comments-container">
+                      <h6 class="comments-header">
+                        Comments ({{ post.comments.length }})
+                      </h6>
+                      <div class="comments-scroll-area">
+                        <div *ngIf="post.comments.length > 0; else noComments">
+                          <div
+                            *ngFor="let comment of post.comments"
+                            class="comment-item"
+                          >
+                            <div class="comment-user">
+                              <strong>
+                                {{ comment.user?.firstName }}
+                                {{ comment.user?.lastName }}
+                              </strong>
+                            </div>
+                            <div class="comment-content">
+                              {{ comment.content }}
+                            </div>
+                          </div>
+                        </div>
+
+                        <ng-template #noComments>
+                          <div class="no-comments">No comments available</div>
+                        </ng-template>
+                      </div>
+                    </div>
+
+                    <div class="comment-form">
+                      <form
+                        [formGroup]="commentForm"
+                        (ngSubmit)="createComment(post.postId)"
+                      >
+                        <div class="d-flex align-items-center">
+                          <input
+                            type="text"
+                            class="form-control me-2"
+                            formControlName="contentText"
+                            placeholder="Add a comment..."
+                          />
+                          <button
+                            type="submit"
+                            class="btn btn-outline-primary"
+                            [disabled]="commentForm.invalid"
+                          >
+                            Comment
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <span class="timestamp" style="margin-left: 64%">
+                    Posted on: {{ post.createdAt | date : "short" }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <ng-template #noPosts>
+              <div class="text-muted">No posts available</div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<body>
+  <div class="main"></div>
+  <div class="profile-settings-container">
+    <div class="back-arrow-container">
+      <a href="/home" class="btn btn-outline-primary back-arrow-btn">
+        <i class="bi bi-arrow-left-circle-fill"></i>
+      </a>
+    </div>
+
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="settings-card">
+            <div class="card-body">
+              <h3 class="card-title mb-4">Profile Settings</h3>
+
+              <form [formGroup]="settingsform">
+                <div class="mb-4">
+                  <label class="form-label">Profile Image</label>
+                  <div class="d-flex align-items-center gap-3">
+                    <img
+                      [src]="profilePhoto"
+                      class="rounded-circle"
+                      style="width: 100px; height: 100px; object-fit: cover"
+                    />
+                    <div>
+                      <input
+                        type="file"
+                        class="form-control"
+                        (change)="onFileSelected($event)"
+                        accept="image/*"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- /////////////////// cover photo -->
+                <div class="mb-4">
+                  <label class="form-label">Cover Image</label>
+                  <div class="d-flex align-items-center gap-3">
+                    <img
+                      [src]="profileCover"
+                      class="rounded-circle"
+                      style="width: 100px; height: 100px; object-fit: cover"
+                    />
+                    <div>
+                      <input
+                        type="file"
+                        class="form-control"
+                        (change)="onCoverSelected($event)"
+                        accept="image/*"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="txtfName"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="txtlName"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Old Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    formControlName="txtOldPassword"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">New Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    formControlName="txtNewPassword"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Confirm Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    formControlName="txtConfirmPassword"
+                  />
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    (click)="edit()"
+                  >
+                    Update Profile
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
